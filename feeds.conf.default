@@ -1,10 +1,8 @@
-src-git-full packages https://git.openwrt.org/feed/packages.git^7efd93e735a0b66d1863a98371d63342f783eaf3
-src-git-full luci https://git.openwrt.org/project/luci.git^fe30872635521ef79f177b12b6f87ee5753e945f
-src-git-full routing https://git.openwrt.org/feed/routing.git^4c35aedcf12078cd6f367abf05e954c06d28bb19
-src-git telephony https://git.openwrt.org/feed/telephony.git;openwrt-24.10
+src-git-full packages https://github.com/brudalevante/packages-8x.git
+src-git-full luci https://github.com/brudalevante/luci--pro8x.git
+src-git-full routing https://github.com/brudalevante/routing-pro-8x.git
+src-git telephony https://github.com/brudalevante/telephony-pro-8x.git
+src-git mtk_openwrt_feed https://github.com/brudalevante/mtk_openwrt_feed.git
+src-git-full small https://github.com/brudalevante/small.git
 
-src-git mtk_openwrt_feed https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds^c85f9c00d4fdf6cdfab36abe487d541bbb569e55
 
-#src-link custom /usr/src/openwrt/custom-feed
-src-git-full kenzo https://github.com/kenzok8/openwrt-packages.git
-src-git-full small https://github.com/kenzok8/small.git
