@@ -1,0 +1,75 @@
+#!/bin/sh
+# Script para copiar wireless, al primer arranque
+# Configuración personalizada de wireless
+cat <<'EOF' > /etc/config/wireless
+
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option path 'soc/11300000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0'
+	option radio '0'
+	option band '2g'
+	option channel '1'
+	option htmode 'EHT40'
+	option country 'US'
+	option noscan '1'
+	option rnr '1'
+	option tx_burst '0.0'
+	option cell_density '0'
+
+config wifi-device 'radio1'
+	option type 'mac80211'
+	option path 'soc/11300000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0'
+	option radio '1'
+	option band '5g'
+	option channel '100'
+	option htmode 'EHT160'
+	option country 'US'
+	option noscan '1'
+	option rnr '1'
+	option background_radar '1'
+	option tx_burst '0.0'
+	option cell_density '0'
+
+config wifi-device 'radio2'
+	option type 'mac80211'
+	option path 'soc/11300000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0'
+	option radio '2'
+	option band '6g'
+	option channel '37'
+	option htmode 'EHT320'
+	option country 'US'
+	option mbssid '1'
+	option tx_burst '0.0'
+	option cell_density '0'
+
+config wifi-iface 'wifinet0'
+	option device 'radio1'
+	option mode 'ap'
+	option ssid 'BANANA 5G'
+	option encryption 'sae'
+	option key '12345678'
+	option ocv '0'
+	option network 'lan'
+
+config wifi-iface 'wifinet1'
+	option device 'radio2'
+	option mode 'ap'
+	option ssid 'BANANA 6G'
+	option encryption 'sae'
+	option key '12345678'
+	option ocv '0'
+	option network 'lan'
+
+config wifi-iface 'wifinet2'
+	option device 'radio0'
+	option mode 'ap'
+	option ssid 'BANANA 2G'
+	option encryption 'sae'
+	option key '12345678'
+	option ocv '0'
+	option network 'lan'
+
+EOF
+uci commit wireless
+
+exit 0
