@@ -3,8 +3,6 @@
 # Configuración personalizada de network
 cat <<'EOF' > /etc/config/network
 
-
-
 config interface 'loopback'
 	option device 'lo'
 	option proto 'static'
@@ -65,6 +63,7 @@ config interface 'WWAN6_Q'
 	option device 'wwan0_1'
 	option reqaddress 'try'
 	option reqprefix 'auto'
+
 
 
 
