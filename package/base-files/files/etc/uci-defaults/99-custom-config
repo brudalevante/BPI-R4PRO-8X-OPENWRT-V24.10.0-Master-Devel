@@ -3,6 +3,7 @@
 # Configuración personalizada de network
 cat <<'EOF' > /etc/config/network
 
+
 config interface 'loopback'
 	option device 'lo'
 	option proto 'static'
@@ -63,8 +64,6 @@ config interface 'WWAN6_Q'
 	option device 'wwan0_1'
 	option reqaddress 'try'
 	option reqprefix 'auto'
-
-
 
 
 # ... añade el resto de tu config personalizada ...
@@ -289,4 +288,4 @@ config wifi-iface 'wifinet3'
 EOF
 uci commit wireless
 
-exit 0 
+exit 0
