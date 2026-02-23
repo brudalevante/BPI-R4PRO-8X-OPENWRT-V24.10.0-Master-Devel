@@ -3,7 +3,7 @@ src-git-full luci https://github.com/brudalevante/luci-pro-8x.git
 src-git-full routing https://github.com/brudalevante/routing-8x.git
 src-git telephony https://github.com/brudalevante/telephony.git;openwrt-24.10
 
-src-git mtk_openwrt_feed https://github.com/brudalevante/mtk_openwrt_feed.git
+src-git mtk_openwrt_feed https://github.com/brudalevante/mtk_openwrt_feed-pro-8x.git
 
 #src-link custom /usr/src/openwrt/custom-feed
 src-git-full kenzo https://github.com/brudalevante/kenzo.git
