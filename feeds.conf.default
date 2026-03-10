@@ -9,7 +9,7 @@ src-git mtk_openwrt_feed https://github.com/brudalevante/mtk_openwrt_feed-pro-8x
 src-git-full kenzo https://github.com/brudalevante/kenzo.git
 src-git-full small https://github.com/brudalevante/small-pro-8x.git
 src-git-full x https://github.com/brudalevante/com.x-wrt-8x.git
-src-git-full QModem https://github.com/brudalevante/QModem.git
+src-git-full QModem https://github.com/brudalevante/QModem-2.git
 
 
 
