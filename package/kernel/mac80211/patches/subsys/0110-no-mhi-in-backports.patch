@@ -1,0 +1,11 @@
+diff --git a/Makefile.kernel b/Makefile.kernel
+--- a/Makefile.kernel
++++ b/Makefile.kernel
+@@ -1,7 +1,7 @@
+ obj-$(CPTCFG_MAC80211) += net/mac80211/
+ obj-$(CPTCFG_QRTR) += net/qrtr/
+ obj-$(CPTCFG_QCOM_QMI_HELPERS) += drivers/soc/qcom/
+-obj-$(CPTCFG_MHI_BUS) += drivers/bus/mhi/
++# obj-$(CPTCFG_MHI_BUS) += drivers/bus/mhi/
+ #obj-$(CPTCFG_WLAN) += drivers/net/wireless/
+ obj-$(CPTCFG_USB_NET_RNDIS_WLAN) += drivers/net/usb/
