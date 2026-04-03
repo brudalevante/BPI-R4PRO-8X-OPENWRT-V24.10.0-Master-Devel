@@ -11,7 +11,8 @@ PKG_NAME:=linux-firmware
 PKG_VERSION:=20241110
 PKG_RELEASE:=2
 
-PKG_SOURCE_URL:=@KERNEL/linux/kernel/firmware
+PKG_SOURCE_URL:=https://github.com/brudalevante/BPI-R4PRO-8X-OPENWRT-V24.10.0-Master-Devel/releases/download/firmware-20241110 \
+	@KERNEL/linux/kernel/firmware
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_HASH:=32e6d3eb5c7fcb69fe5d58976c6deafa0d6552719c6e74835064aff049d25bd7
 

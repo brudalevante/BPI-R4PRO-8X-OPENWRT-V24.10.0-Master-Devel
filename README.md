@@ -106,6 +106,41 @@ For a list of supported devices see the [OpenWrt Hardware Database](https://open
 * [Dev Mailing List](https://lists.openwrt.org/mailman/listinfo/openwrt-devel): Send patches
 * [Dev Chat](https://webchat.oftc.net/#openwrt-devel): Channel `#openwrt-devel` on **oftc.net**.
 
+## Linux Firmware Tarball (build dependency)
+
+The build requires `linux-firmware-20241110.tar.xz` (≈405 MB) in the `dl/` cache.
+The Makefile (`package/firmware/linux-firmware/Makefile`) is configured to download it
+automatically from this repository's GitHub Release **first**, falling back to the
+upstream kernel mirror if the release asset is not reachable.
+
+### How to publish the tarball to GitHub Releases (maintainer steps)
+
+Run these commands **once** from a machine where you already have the file and the
+[GitHub CLI](https://cli.github.com) (`gh`) installed and authenticated:
+
+```sh
+# From the root of the cloned repository
+gh release create firmware-20241110 \
+  /path/to/linux-firmware-20241110.tar.xz \
+  --repo brudalevante/BPI-R4PRO-8X-OPENWRT-V24.10.0-Master-Devel \
+  --title "linux-firmware 20241110" \
+  --notes "linux-firmware-20241110.tar.xz build dependency (SHA-256: 32e6d3eb5c7fcb69fe5d58976c6deafa0d6552719c6e74835064aff049d25bd7)"
+```
+
+Expected result:
+- Tag: `firmware-20241110`
+- Asset file name: `linux-firmware-20241110.tar.xz`
+- SHA-256: `32e6d3eb5c7fcb69fe5d58976c6deafa0d6552719c6e74835064aff049d25bd7`
+
+Once the release asset exists, any fresh clone can build without manual intervention:
+
+```sh
+make package/firmware/linux-firmware/download V=s
+```
+
+> **Do NOT** commit `dl/linux-firmware-*.tar.xz` or any other tarball directly
+> into git. The `dl/` directory is listed in `.gitignore` and should stay there.
+
 ## License
 
 OpenWrt is licensed under GPL-2.0
