@@ -9,10 +9,13 @@ This repository is my OpenWrt build tree and patchset for the **Banana Pi BPI-R4
 
 ## Author / nicknames
 
-- Banana Pi forum nickname: **Xiaomi_ax3600**   https://forum.banana-pi.org/t/bpi-r4-pro-openwrt-v24-10-0-master-devel-source-code-on-github/26175/5
+- Banana Pi forum nickname: **Xiaomi_ax3600**  
+  (BPI-R4 PRO 8X official thread / images by date):  
+  https://forum.banana-pi.org/t/bpi-r4-pro-openwrt-v24-10-0-master-devel-source-code-on-github/26175/5
+
 - OpenWrt forum nickname: **bruda**  
-  (On OpenWrt forums I only publish/compile images for **Banana Pi BPI-R4 4GB RAM** and **8GB RAM** in this thread:  
-  https://forum.openwrt.org/t/banana-bpi-r4-all-related-to-mtk-sdk/221080/1016 )
+  (On OpenWrt forums I only publish/compile images for **Banana Pi BPI-R4 4GB RAM** and **8GB RAM** in this thread):  
+  https://forum.openwrt.org/t/banana-bpi-r4-all-related-to-mtk-sdk/221080/1016
 
 ![OpenWrt logo](include/logo.png)
 
@@ -124,3 +127,5 @@ make package/firmware/linux-firmware/download V=s
 ---
 
 ## License
+
+OpenWrt is licensed under GPL-2.0
