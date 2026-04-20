@@ -1,5 +1,5 @@
 src-git-full packages https://github.com/brudalevante/packages-pro-8x.git
-src-git-full luci https://github.com/brudalevante/luci-pro8x-12-04-2026.git
+src-git-full luci https://github.com/brudalevante/luci-8x.git
 src-git-full routing https://github.com/brudalevante/routing-pro-8x.git
 src-git-full telephony https://github.com/brudalevante/telephony-8x.git
 
