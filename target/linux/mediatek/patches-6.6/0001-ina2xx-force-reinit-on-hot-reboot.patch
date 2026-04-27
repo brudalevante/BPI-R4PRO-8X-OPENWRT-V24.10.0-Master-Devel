@@ -1,4 +1,5 @@
-From: Eduardo Alfaia <brudalevante@gmail.com>
+From f0a1b2c3d4e56789012345678901633216744abc Mon Sep 17 00:00:00 2001
+From: brudalevante <170347513+brudalevante@users.noreply.github.com>
 Date: Tue Apr 28 02:00:00 2026 +0200
 Subject: [PATCH] ina2xx: force reinitialization on hot reboot
 
