@@ -180,7 +180,6 @@ This repository uses the normal feed workflow for the original **BE14000** card 
 ./scripts/feeds install -a
 ```
 
-Unlike the separate MT7927 fork, this repository does **not** require a customized no-update feed workflow.
 
 ---
 
