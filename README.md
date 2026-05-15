@@ -2,16 +2,14 @@
 
 This repository is my OpenWrt build tree and patchset for the **Banana Pi BPI-R4 PRO 8X**.
 
-- **Official Banana Pi forum thread (ALL BPI-R4 PRO 8X images, changelog, screenshots):**  
+- **Official Banana Pi forum thread (all BPI-R4 PRO 8X images, changelog, screenshots):**  
   https://forum.banana-pi.org/t/bpi-r4-pro-openwrt-v24-10-0-master-devel-source-code-on-github/26175/5  
   Images are published **by date** (the **date** in the forum post is the download link).
 - Legacy / long-term notes (EN/ES): see [`LEGACY.md`](LEGACY.md)
 
 ## Author / nicknames
 
-- Banana Pi forum nickname: **Xiaomi_ax3600**  
-  (BPI-R4 PRO 8X official thread / images by date):  
- 
+- Banana Pi forum nickname: **Xiaomi_ax3600**
 - OpenWrt forum nickname: **bruda**  
   (On OpenWrt forums I only publish/compile images for **Banana Pi BPI-R4 4GB RAM** and **8GB RAM** in this thread):  
   https://forum.openwrt.org/t/banana-bpi-r4-all-related-to-mtk-sdk/221080/1016
@@ -22,101 +20,193 @@ This repository is my OpenWrt build tree and patchset for the **Banana Pi BPI-R4
 
 ## What this is / What this is not
 
-**What this is**
-- A working OpenWrt build tree used to produce my BPI-R4 PRO 8X images.
-- A place where I keep device-specific patches (SFP/PON, switch/Wi-Fi integration, etc.).
+### What this is
+- A working OpenWrt build tree used to produce my **BPI-R4 PRO 8X** images
+- A fork with device-specific changes for this hardware
+- A place where I keep my patches, integration changes, and board-specific build adjustments
+- A tree intended for the original **BE14000** card setup
 
-**What this is not**
-- Upstream OpenWrt official repository.
-- A “general purpose” OpenWrt support repo for all devices.
+### What this is not
+- The official upstream OpenWrt repository
+- A generic OpenWrt tree for every device
+- A fork adapted for the MT7927 card variant
 
 ---
 
 ## Downloads (firmware images)
 
-All my ready-to-flash images for **BPI-R4 PRO 8X** are published in the **official Banana Pi forum thread** (link above).  
-They are posted **by date** (each date is the download link).
+All my ready-to-flash images for **BPI-R4 PRO 8X** are published in the **official Banana Pi forum thread** linked above.
 
-If you are looking for official upstream OpenWrt images for other devices, use:
+They are posted **by date**, and the **date itself** is the download link.
+
+If you are looking for official upstream OpenWrt firmware for other devices, use:
+
 - https://firmware-selector.openwrt.org/
 
 ---
 
 ## Build environment
 
-This fork is typically built on **Ubuntu 20.04 x86_64** (case-sensitive filesystem required).
+This fork is typically built on **Ubuntu 20.04 x86_64** with a **case-sensitive filesystem**.
 
 ### Requirements
 
-Package names vary by distro; see OpenWrt documentation:
+Package names may vary depending on the Linux distribution. See the official OpenWrt documentation:
+
 - https://openwrt.org/docs/guide-developer/build-system/install-buildsystem
 
-Typical tool list:
-```
+Typical package list:
+
+```text
 binutils bzip2 diff find flex gawk gcc-6+ getopt grep install libc-dev libz-dev
 make4.1+ perl python3.7+ rsync subversion unzip which
 ```
 
-### Quickstart
+---
 
-1. Update feeds:
+## Quickstart
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/brudalevante/BPI-R4PRO-8X-OPENWRT-V24.10.0-Master-Devel.git
+   cd BPI-R4PRO-8X-OPENWRT-V24.10.0-Master-Devel
+   ```
+
+2. Update feeds:
+
    ```sh
    ./scripts/feeds update -a
    ```
-2. Install feeds:
+
+3. Install feeds:
+
    ```sh
    ./scripts/feeds install -a
    ```
-3. Configure:
+
+4. Configure:
+
    ```sh
    make menuconfig
    ```
-4. Build:
+
+5. Pre-download sources:
+
    ```sh
-   make -j"$(nproc)"
+   make download -j1 V=s
+   ```
+
+6. Build:
+
+   ```sh
+   make -j"$(nproc)" V=s
    ```
 
 ---
 
-## Linux Firmware Tarball (build dependency)
+## Optional: faster staged compile with log output
 
-The build requires `linux-firmware-20241110.tar.xz` (≈405 MB) in the `dl/` cache.
-
-The Makefile (`package/firmware/linux-firmware/Makefile`) is configured to download it
-automatically from this repository's GitHub Release **first**, falling back to the
-upstream kernel mirror if the release asset is not reachable.
-
-### How to publish the tarball to GitHub Releases (maintainer steps)
-
-Run these commands **once** from a machine where you already have the file and the
-GitHub CLI (`gh`) installed and authenticated:
+If you want to pre-build key parts using all CPU cores and keep a full log for troubleshooting, you can use:
 
 ```sh
-# From the root of the cloned repository
-gh release create firmware-20241110 \
-  /path/to/linux-firmware-20241110.tar.xz \
-  --repo brudalevante/BPI-R4PRO-8X-OPENWRT-V24.10.0-Master-Devel \
-  --title "linux-firmware 20241110" \
-  --notes "linux-firmware-20241110.tar.xz build dependency (SHA-256: 32e6d3eb5c7fcb69fe5d58976c6deafa0d6552719c6e74835064aff049d25bd7)"
+make -j"$(nproc)" {toolchain,target,package/firmware/linux-firmware}/compile V=s 2>&1 | tee compile.log
 ```
 
-Expected result:
-- Tag: `firmware-20241110`
-- Asset file name: `linux-firmware-20241110.tar.xz`
-- SHA-256: `32e6d3eb5c7fcb69fe5d58976c6deafa0d6552719c6e74835064aff049d25bd7`
-
-Once the release asset exists, any fresh clone can build without manual intervention:
+If a build error appears, you can quickly locate the failing stage with:
 
 ```sh
-make package/firmware/linux-firmware/download V=s
+grep "failed to build" compile.log
 ```
 
-> Do **NOT** commit `dl/linux-firmware-*.tar.xz` (or any other tarball) into git.  
-> The `dl/` directory is in `.gitignore` and should stay that way.
+This is optional, but it can help speed up preparation and make troubleshooting easier.
 
 ---
 
-## Support / Documentation (upstream)
+## Required linux-firmware archive
+
+This build requires the file:
+
+```text
+linux-firmware-20241110.tar.xz
+```
+
+Because of its large size (around **405 MB**), it is provided through this repository's **GitHub Releases** as a release asset instead of being committed directly into the repository.
+
+### Required action
+
+Download the release asset:
+
+```text
+linux-firmware-20241110.tar.xz
+```
+
+from this repository's **Releases** section and place it manually inside:
+
+```text
+dl/
+```
+
+### Important
+
+Do **not** use GitHub's automatically generated:
+
+- **Source code (.zip)**
+- **Source code (.tar.gz)**
+
+downloads, because they are **not** the required firmware archive.
+
+A normal clean build may **not download this file automatically** in this setup, so it must be added manually to `dl/` before compiling.
+
+---
+
+## Required Airoha firmware files
+
+This tree includes the required Airoha firmware files:
+
+```text
+EthMD32.dm.bin
+EthMD32.DSP.bin
+```
+
+They are present under:
+
+```text
+build_dir/target-aarch64_cortex-a53_musl/linux-firmware-20241110/airoha/
+```
+
+for this build environment.
+
+---
+
+## Feeds
+
+In this repository, the feeds follow the normal workflow for the original **BE14000** card setup.
+
+Use:
+
+```sh
+./scripts/feeds update -a
+./scripts/feeds install -a
+```
+
+This repository does **not** use the MT7927-specific feed layout from the separate MT7927 fork.
+
+---
+
+## Board-specific changes included in this fork
+
+This repository contains board-specific modifications for this hardware variant, including changes in areas such as:
+
+- `target/linux/mediatek/files-6.6/arch/arm64/boot/dts/mediatek/`
+- `target/linux/mediatek/image/filogic.mk`
+- board integration changes for the original BPI-R4 PRO 8X setup
+
+These changes are part of the fork and are required for this specific build target.
+
+---
+
+## Upstream OpenWrt documentation
 
 - Supported devices database: https://openwrt.org/supported_devices
 - Quick Start: https://openwrt.org/docs/guide-quick-start/start
@@ -127,4 +217,4 @@ make package/firmware/linux-firmware/download V=s
 
 ## License
 
-OpenWrt is licensed under GPL-2.0
+OpenWrt is licensed under **GPL-2.0**.
