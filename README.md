@@ -113,19 +113,19 @@ If you want to pre-build key parts using all CPU cores and keep a full log for t
 make -j"$(nproc)" {toolchain,target,package/firmware/linux-firmware}/compile V=s 2>&1 | tee compile.log
 ```
 
-If a build error appears, you can quickly locate the failing stage with:
+If a build error occurs, you can quickly locate the failing stage with:
 
 ```sh
 grep "failed to build" compile.log
 ```
 
-This is optional, but it can help speed up preparation and make troubleshooting easier.
+This step is optional, but it can speed up preparation and make troubleshooting easier.
 
 ---
 
 ## Required linux-firmware archive
 
-This build requires the file:
+This build requires the following file:
 
 ```text
 linux-firmware-20241110.tar.xz
@@ -141,7 +141,7 @@ Download the release asset:
 linux-firmware-20241110.tar.xz
 ```
 
-from this repository's **Releases** section and place it manually inside:
+from this repository's **Releases** section and place it manually in:
 
 ```text
 dl/
@@ -156,41 +156,31 @@ Do **not** use GitHub's automatically generated:
 
 downloads, because they are **not** the required firmware archive.
 
-A normal clean build may **not download this file automatically** in this setup, so it must be added manually to `dl/` before compiling.
+A clean build may **not download this file automatically** in this setup, so it must be added manually to `dl/` before compiling.
 
 ---
 
 ## Required Airoha firmware files
 
-This tree includes the required Airoha firmware files:
+This tree includes the required Airoha firmware files for this build:
 
 ```text
 EthMD32.dm.bin
 EthMD32.DSP.bin
 ```
 
-They are present under:
-
-```text
-build_dir/target-aarch64_cortex-a53_musl/linux-firmware-20241110/airoha/
-```
-
-for this build environment.
-
 ---
 
 ## Feeds
 
-In this repository, the feeds follow the normal workflow for the original **BE14000** card setup.
-
-Use:
+This repository uses the normal feed workflow for the original **BE14000** card setup:
 
 ```sh
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 ```
 
-This repository does **not** use the MT7927-specific feed layout from the separate MT7927 fork.
+Unlike the separate MT7927 fork, this repository does **not** require a customized no-update feed workflow.
 
 ---
 
