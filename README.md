@@ -187,8 +187,6 @@ This repository uses the normal feed workflow for the original **BE14000** card 
 
 This repository contains board-specific modifications for this hardware variant, including changes in areas such as:
 
-- `target/linux/mediatek/files-6.6/arch/arm64/boot/dts/mediatek/`
-- `target/linux/mediatek/image/filogic.mk`
 - board integration changes for the original BPI-R4 PRO 8X setup
 
 These changes are part of the fork and are required for this specific build target.
