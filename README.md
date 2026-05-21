@@ -29,7 +29,7 @@ This repository is my OpenWrt build tree and patchset for the **Banana Pi BPI-R4
 ### What this is not
 - The official upstream OpenWrt repository
 - A generic OpenWrt tree for every device
-- A fork adapted for the MT7927 card variant
+
 
 ---
 
