@@ -47,7 +47,7 @@ If you are looking for official upstream OpenWrt firmware for other devices, use
 
 ## Build environment
 
-This fork is typically built on **Ubuntu 20.04 x86_64** with a **case-sensitive filesystem**.
+This fork is typically built on **Ubuntu ** with a **case-sensitive filesystem**.
 
 ### Requirements
 
