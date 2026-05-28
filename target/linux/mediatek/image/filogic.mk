@@ -609,9 +609,9 @@ define Device/bananapi_bpi-r4-pro-8x-common
 	       sdcard.img.gz \
 	       snand-factory.bin snand-preloader.bin snand-bl31-uboot.fip
   ARTIFACT/emmc-gpt.bin := mt798x-r4pro-gpt emmc
-  ARTIFACT/emmc-preloader.bin   := mt7988-bl2 emmc-comb
-  ARTIFACT/emmc-bl31-uboot.fip  := mt7988-bl31-uboot $$(DEVICE_NAME)-emmc
-  ARTIFACT/emmc.img.gz        := mt798x-r4pro-gpt emmc |\
+  ARTIFACT/emmc-preloader.bin := mt7988-bl2 emmc-comb
+  ARTIFACT/emmc-bl31-uboot.fip := mt7988-bl31-uboot $$(DEVICE_NAME)-emmc
+  ARTIFACT/emmc.img.gz := mt798x-r4pro-gpt emmc |\
 				   pad-to 512k | mt7988-bl2 emmc-comb |\
 				   pad-to 6656k | mt7988-bl31-uboot $$(DEVICE_NAME)-emmc |\
 				$(if $(CONFIG_TARGET_ROOTFS_INITRAMFS),\
@@ -621,17 +621,17 @@ define Device/bananapi_bpi-r4-pro-8x-common
 				   pad-to 160M | append-image squashfs-sysupgrade.itb | check-size |\
 				) \
 				  gzip
-  ARTIFACT/snand-preloader.bin  := mt7988-bl2 spim-nand-ubi-comb
+  ARTIFACT/snand-preloader.bin := mt7988-bl2 spim-nand-ubi-comb
   ARTIFACT/snand-bl31-uboot.fip := mt7988-bl31-uboot $$(DEVICE_NAME)-snand
   UBINIZE_PARTS := fip=:$(STAGING_DIR_IMAGE)/mt7988_bananapi_bpi-r4-pro-8x-snand-u-boot.fip
-  UBINIZE_PARTS += recovery=:$(STAGING_DIR_IMAGE)/mediatek-filogic-bananapi_bpi-r4-pro-8x-initramfs-recovery.itb
+  UBINIZE_PARTS += recovery=:$(BIN_DIR)/targets/$(BOARD)/$(SUBTARGET)/openwrt-$(IMG_PREFIX)-initramfs-recovery.itb
   ARTIFACT/snand-factory.bin := mt7988-bl2 spim-nand-ubi-comb | pad-to 256k | \
-	  			mt7988-bl2 spim-nand-ubi-comb | pad-to 512k | \
+				mt7988-bl2 spim-nand-ubi-comb | pad-to 512k | \
 				mt7988-bl2 spim-nand-ubi-comb | pad-to 768k | \
 				mt7988-bl2 spim-nand-ubi-comb | pad-to 6144k | \
 				ubinize-image fit squashfs-sysupgrade.itb
-  ARTIFACT/sdcard.img.gz        := mt798x-r4pro-gpt sdmmc |\
-	  			   pad-to 17k | mt7988-bl2 sdmmc-comb |\
+  ARTIFACT/sdcard.img.gz := mt798x-r4pro-gpt sdmmc |\
+				   pad-to 17k | mt7988-bl2 sdmmc-comb |\
 				   pad-to 6656k | mt7988-bl31-uboot $$(DEVICE_NAME)-sdmmc |\
 				$(if $(CONFIG_TARGET_ROOTFS_INITRAMFS),\
 				   pad-to 12M | append-image-stage initramfs-recovery.itb | check-size 128m |\
@@ -646,7 +646,7 @@ define Device/bananapi_bpi-r4-pro-8x-common
 				) \
 				  gzip
   IMAGE_SIZE := $$(shell expr 64 + $$(CONFIG_TARGET_ROOTFS_PARTSIZE))m
-  KERNEL			:= kernel-bin | gzip
+  KERNEL := kernel-bin | gzip
   KERNEL_INITRAMFS := kernel-bin | lzma | \
 	fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb with-initrd | pad-to 64k
   IMAGE/sysupgrade.itb := append-kernel | fit gzip $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb external-with-rootfs | pad-rootfs | append-metadata
