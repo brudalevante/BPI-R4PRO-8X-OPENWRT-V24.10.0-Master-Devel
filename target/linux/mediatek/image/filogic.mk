@@ -624,7 +624,7 @@ define Device/bananapi_bpi-r4-pro-8x-common
   ARTIFACT/snand-preloader.bin := mt7988-bl2 spim-nand-ubi-comb
   ARTIFACT/snand-bl31-uboot.fip := mt7988-bl31-uboot $$(DEVICE_NAME)-snand
   UBINIZE_PARTS := fip=:$(STAGING_DIR_IMAGE)/mt7988_bananapi_bpi-r4-pro-8x-snand-u-boot.fip
-  UBINIZE_PARTS += recovery=:$(BIN_DIR)/targets/$(BOARD)/$(SUBTARGET)/openwrt-$(IMG_PREFIX)-initramfs-recovery.itb
+  UBINIZE_PARTS += recovery=:$(BIN_DIR)/openwrt-mediatek-filogic-bananapi_bpi-r4-pro-8x-initramfs-recovery.itb
   ARTIFACT/snand-factory.bin := mt7988-bl2 spim-nand-ubi-comb | pad-to 256k | \
 				mt7988-bl2 spim-nand-ubi-comb | pad-to 512k | \
 				mt7988-bl2 spim-nand-ubi-comb | pad-to 768k | \
